@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
@@ -124,15 +124,25 @@ export default function Login() {
         </form>
 
         <p
-          style={{
-            marginTop: "25px",
-            fontSize: "13px",
-            color: "#888",
-            textAlign: "center",
-          }}
-        >
-          Fitness Connect
-        </p>
+  style={{
+    marginTop: "25px",
+    fontSize: "13px",
+    color: "#888",
+    textAlign: "center",
+  }}
+>
+  Don't have an account?{" "}
+  <Link
+    to="/signup"
+    style={{
+      color: "#0788d1",
+      textDecoration: "none",
+      fontWeight: "500",
+    }}
+  >
+    Sign Up
+  </Link>
+</p>
       </div>
     </div>
   );

@@ -97,7 +97,74 @@ router.post('/register', async (req, res) => {
     }
   }
 });
+router.post('/signup', async (req, res) => {
+  let connection;
 
+  try {
+    const {
+      FirstName,
+      LastName,
+      Email,
+      DOB,
+      Gender,
+      Password
+    } = req.body;
+
+    if (!FirstName || !LastName || !Email || !DOB || !Gender || !Password) {
+      return res.status(400).json({
+        error: 'All fields are required'
+      });
+    }
+
+    connection = await getConnection();
+
+    const existingUser = await connection.execute(
+      `SELECT UserID
+       FROM USERS
+       WHERE Email = :Email`,
+      { Email }
+    );
+
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({
+        error: 'Email already registered'
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(Password, 10);
+
+    await connection.execute(
+      `INSERT INTO USERS
+       (FirstName, LastName, Email, DOB, Gender, Password)
+       VALUES
+       (:FirstName, :LastName, :Email, TO_DATE(:DOB, 'YYYY-MM-DD'), :Gender, :Password)`,
+      {
+        FirstName,
+        LastName,
+        Email,
+        DOB,
+        Gender,
+        Password: hashedPassword
+      }
+    );
+
+    await connection.commit();
+
+    res.status(201).json({
+      message: 'Account created successfully'
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: error.message
+    });
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
+});
 router.post('/login', async (req, res) => {
   let connection;
 

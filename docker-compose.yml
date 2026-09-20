@@ -3,11 +3,36 @@ services:
     image: container-registry.oracle.com/database/free:latest
     container_name: fittrack-oracle
     ports:
-      - "1521:1521"
+      - "1522:1521"
     environment:
       ORACLE_PWD: GarminDocker123
     volumes:
       - oracle_data:/opt/oracle/oradata
+      - ./docker/oracle/startup:/opt/oracle/scripts/startup
+  backend:
+    build:
+      context: ./backend
+    container_name: fittrack-backend
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      ORACLE_USER: GARMIN_USER
+      ORACLE_PASSWORD: GarminDocker123
+      ORACLE_CONNECT_STRING: oracle:1521/FREEPDB1
+      JWT_SECRET: super_secret_fittrack_key
+    depends_on:
+      - oracle
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: fittrack-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
 
 volumes:
   oracle_data:
+  

@@ -15,7 +15,7 @@ app.use('/api', apiRoutes);
 
 // Default route
 app.get('/', (req, res) => {
-  res.send('Garmin Clone API is running');
+  res.send('FitTrack API is running');
 });
 
 // Database Connection

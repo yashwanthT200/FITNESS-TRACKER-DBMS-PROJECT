@@ -58,7 +58,7 @@ async function setupDatabase() {
 
     console.log("");
     console.log("Database setup completed successfully.");
-    console.log("18-table Garmin schema is ready.");
+console.log("18-table FitTrack schema is ready.");
     console.log("Sequences are ready.");
     console.log("Triggers are ready.");
 

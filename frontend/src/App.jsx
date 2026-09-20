@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { Layout } from "./components/layout/Layout";
 import { Dashboard } from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import { Card } from "./components/ui/Card";
 import { useAuth } from "./contexts/AuthContext";
 import Activities from "./pages/Activities";
@@ -76,7 +77,7 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<Login />} />
-
+        <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<ProtectedLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="activities" element={<Activities />} />

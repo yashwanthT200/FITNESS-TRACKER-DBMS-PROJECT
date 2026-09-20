@@ -13,7 +13,7 @@ const apiRoutes = require('./routes/api');
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Garmin Clone API is running');
+  res.send('FitTrack API is running');
 });
 
 async function startServer() {
