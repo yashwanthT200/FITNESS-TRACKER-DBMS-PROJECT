@@ -1,0 +1,19 @@
+{
+  "name": "garmin_clone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "influx": "node tools/start-influx.js",
+    "server": "npm start --prefix backend",
+    "client": "npm run dev --prefix frontend",
+    "db:seed:influx": "npm run db:seed:influx --prefix backend",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "oracledb": "^7.0.1"
+  }
+}
